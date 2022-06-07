@@ -5,8 +5,9 @@ const popup = document.getElementById('popup-container');
 const notification = document.getElementById('notification-container');
 const finalMessage = document.getElementById('final-message');
 const figureParts = document.querySelectorAll('.figure-part');
+const compteur = document.querySelector('.erreur')
 
-const words = ['application', 'programming', 'interface', 'wizard'];
+const words = ['applic', 'program', 'interfa', 'wizard'];
 
 let selectedWord = words[Math.floor(Math.random() * words.length)];
 
@@ -42,8 +43,8 @@ function displayword(){
       )
    .join('')}
    `;
+  
    const innerWord = wordE1.innerText.replace(/\n/g, '');
-   
    if(innerWord === selectedWord){
       finalMessage.innerText = 'Super! vous avez gagné';
       playAgainBtn.textContent = 'Rejouier'
@@ -59,11 +60,15 @@ ${wrongLetters.length > 0 ? `<p>Wrong</p>`: ''}
 ${wrongLetters.map(letter => `<span>${letter}</span>`)}`;
 
 //display parts
+let i=0;
 figureParts.forEach((part, index) => {
    const errors = wrongLetters.length;
-
+   
    if(index < errors) {
       part.style.display = 'block'
+      i++;
+      compteur.textContent = i;
+    
    }
    else{
       part.style.display = 'none';
@@ -117,6 +122,7 @@ window.addEventListener('keydown', e =>{
 playAgainBtn.addEventListener('click', () =>{
    correctLetters.splice(0);
     wrongLetters.splice(0);
+    compteur.textContent = "";
 
 selectedWord = words[Math.floor(Math.random() * words.length)];
 displayword();
